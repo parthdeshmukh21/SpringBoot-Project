@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+
         stage('Clone Code') {
             steps {
                 git branch: 'main',
@@ -11,7 +12,9 @@ pipeline {
 
         stage('Build with Maven') {
             steps {
-                sh 'mvn clean package'
+                withMaven(maven: 'maven') {
+                    sh 'mvn clean package'
+                }
             }
         }
     }
